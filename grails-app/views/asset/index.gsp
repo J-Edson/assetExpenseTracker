@@ -36,7 +36,7 @@
     <!-- Modal End -->
     <div>
         <g:each var="asset" in="${assetList}">
-            <g:link controller="asset" action="show" params="[id: asset.id]">${asset.assetName}:${asset.balance}:${asset.status.id}</g:link>
+            <g:link controller="asset" action="show" params="[id: asset.id]">${asset.assetName}:${asset.balance}:${asset.status.name}</g:link><br>
         </g:each>
     </div>
     <div>

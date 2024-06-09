@@ -72,6 +72,9 @@
                 </ul>
             </div>
         </section>
+        <g:form controller="logout" action="" method="post">
+            <g:submitButton name="Logout" value="Logout"/>
+        </g:form>
     </div>
 </div>
 

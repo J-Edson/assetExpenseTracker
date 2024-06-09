@@ -41,7 +41,7 @@
     <!-- Modal End -->
     <div>
         <g:each var="expense" in="${expenseList}">
-            <g:link controller="expense" action="show" params="[id: expense.id]">${expense.txnName}:${expense.txnAmt}</g:link>
+            <g:link controller="expense" action="show" params="[id: expense.id]">${expense.txnName}:${expense.txnAmt}:${expense.status.name}</g:link><br>
         </g:each>
     </div>
     <div>

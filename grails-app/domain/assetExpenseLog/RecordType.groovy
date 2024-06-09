@@ -1,11 +1,10 @@
 package assetexpenselog
 
-class Status {
+class RecordType {
 
     Integer code
     String name
-    
+
     static constraints = {
     }
 }
-

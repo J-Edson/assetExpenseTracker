@@ -113,15 +113,15 @@ environments:
   development:
     dataSource:
       dbCreate: update
-      url: jdbc:postgresql://localhost:5432/asset_expense_log
+      url: jdbc:postgresql://localhost:5432/asset_expense_log5
   test:
     dataSource:
       dbCreate: update
-      url: jdbc:postgresql://localhost:5432/asset_expense_log
+      url: jdbc:postgresql://localhost:5432/asset_expense_log5
   production:
     dataSource:
       dbCreate: update
-      url: jdbc:postgresql://localhost:5432/asset_expense_log
+      url: jdbc:postgresql://localhost:5432/asset_expense_log5
       properties:
         jmxEnabled: true
         initialSize: 5
