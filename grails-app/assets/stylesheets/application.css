@@ -13,3 +13,61 @@
 *= require mobile
 *= require_self
 */
+.navbar{
+    background-color: #F5F7FA !important;
+    min-height: 10vh;
+}
+
+.indexWrapper{
+    font-family: 'Dongle', sans-serif;
+    min-height: 90vh;
+}
+
+.sidebar{
+    min-height: 90vh;
+    background-color: #F5F7FA !important;
+}
+
+
+#AssetSub{
+    font-size: 30px;
+    color: #B1B1B1;
+    padding: 0px;
+}
+
+#HomeSub{
+    font-size: 30px;
+    color: #B1B1B1;
+    padding: 0px;
+}
+
+#ExpenseSub{
+    font-size: 30px;
+    color: #B1B1B1;
+    padding: 0px;
+}
+
+#LogSub{
+    font-size: 30px;
+    color: #B1B1B1;
+    padding: 0px;
+}
+
+
+.sidebar-link:hover{
+    text-shadow: none !important;
+    background-color: #F5F7FA !important;
+}
+
+#navBarLogo{
+    font-family: "Archivo Black", sans-serif;
+    font-size: 30px;
+    color: #343C6A !important;
+}
+
+#moduleName{
+    font-family: "Days One", sans-serif;
+    font-style: normal;
+    font-size: 30px;
+    color: #343C6A !important;
+}

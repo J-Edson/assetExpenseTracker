@@ -9,3 +9,7 @@
 //= require popper.min
 //= require bootstrap
 //= require_self
+let sidebarClickHome = false;
+let sidebarClickAsset = false;
+let sidebarClickExpense = false;
+let sidebarClickLog = false;

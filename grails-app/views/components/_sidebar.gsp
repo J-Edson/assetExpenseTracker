@@ -1,14 +1,6 @@
-<ul class="nav flex-column">
-  <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="#">Active</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Link</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Link</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link disabled">Disabled</a>
-  </li>
+<ul class="nav flex-column text-center sidebar pt-3">
+  <% def sidebarItems = ["Home", "Asset", "Expense", "Log"] %>
+  <g:each var="sidebarItem" in="${sidebarItems}">
+      <g:render template="components/sidebarItem" model="${['sidebarItem': sidebarItem, 'sidebarItems': sidebarItems]}"/>
+  </g:each>
 </ul>
