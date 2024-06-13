@@ -36,26 +36,26 @@
 
     ${sidebarItem}Item.addEventListener('click', function() {
         sidebarClickHome = false
-        sidebarClickAsset = false
+        sidebarClickSavings = false
         sidebarClickExpense = false
-        sidebarClickLog = false
+        sidebarClickLogs = false
         sidebarClick${sidebarItem}=true
 
         HomeIcon.src=`${assetPath(src: 'Home_icon.svg')}`
         HomeSub.style.color='#B1B1B1'
         HomeItem.style.borderLeft='';
 
-        AssetIcon.src=`${assetPath(src: 'Asset_icon.svg')}`
-        AssetSub.style.color='#B1B1B1'
-        AssetItem.style.borderLeft='';
+        SavingsIcon.src=`${assetPath(src: 'Savings_icon.svg')}`
+        SavingsSub.style.color='#B1B1B1'
+        SavingsItem.style.borderLeft='';
 
         ExpenseIcon.src=`${assetPath(src: 'Expense_icon.svg')}`
         ExpenseSub.style.color='#B1B1B1'
         ExpenseItem.style.borderLeft='';
 
-        LogIcon.src=`${assetPath(src: 'Log_icon.svg')}`
-        LogSub.style.color='#B1B1B1'
-        LogItem.style.borderLeft='';
+        LogsIcon.src=`${assetPath(src: 'Logs_icon.svg')}`
+        LogsSub.style.color='#B1B1B1'
+        LogsItem.style.borderLeft='';
 
         ${sidebarItem}Icon.src=`${assetPath(src: srcPath1)}`
         ${sidebarItem}Sub.style.color='#2D60FF'

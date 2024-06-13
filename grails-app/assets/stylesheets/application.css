@@ -23,13 +23,8 @@
     min-height: 90vh;
 }
 
-.sidebar{
-    min-height: 90vh;
-    background-color: #F5F7FA !important;
-}
 
-
-#AssetSub{
+#SavingsSub{
     font-size: 30px;
     color: #B1B1B1;
     padding: 0px;
@@ -47,7 +42,7 @@
     padding: 0px;
 }
 
-#LogSub{
+#LogsSub{
     font-size: 30px;
     color: #B1B1B1;
     padding: 0px;
