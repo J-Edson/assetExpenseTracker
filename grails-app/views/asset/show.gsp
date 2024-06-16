@@ -44,7 +44,7 @@
                     <div>${assetInstance.assetName}</div>
                     <input id="txnAmt" name="txnAmt" type="number" step="0.01" min="0" placeholder="0.00" required/><br>
                     <select id="debitAssetID" name="debitAssetID" multiple>
-                        <g:each var="asset" in="${assetList}">
+                        <g:each var="asset" in="${assetActiveList}">
                             <option value=${asset.id}>${asset.assetName}</option>
                         </g:each>
                     </select>
