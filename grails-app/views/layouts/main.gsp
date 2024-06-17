@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title>
-        <g:layoutTitle default="Grails"/>
+        <g:layoutTitle default="Asset Expense Log"/>
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <asset:link rel="icon" href="favicon.ico" type="image/x-ico"/>
@@ -24,7 +24,15 @@
 </head>
 
 <body>
-<asset:javascript src="application.js"/>
-<g:layoutBody/>
+    <asset:javascript src="application.js"/>
+    <g:render template="/components/navbar"/>
+    <div class="row" >
+        <div class="col-2">
+            <g:render template="/components/sidebar"/>
+        </div>
+        <div class="col">
+            <g:layoutBody/>
+        </div>
+    </div>
 </body>
 </html>

@@ -13,18 +13,17 @@
 *= require mobile
 *= require_self
 */
+*{
+    font-family: 'Dongle', sans-serif;
+}
+
 .navbar{
     background-color: #F5F7FA !important;
     min-height: 10vh;
 }
 
-.indexWrapper{
-    font-family: 'Dongle', sans-serif;
-    min-height: 90vh;
-}
 
-
-#SavingsSub{
+#AssetSub{
     font-size: 30px;
     color: #B1B1B1;
     padding: 0px;
@@ -35,6 +34,7 @@
     color: #B1B1B1;
     padding: 0px;
 }
+
 
 #ExpenseSub{
     font-size: 30px;
@@ -56,7 +56,7 @@
 
 #navBarLogo{
     font-family: "Archivo Black", sans-serif;
-    font-size: 30px;
+    font-size: 35px;
     color: #343C6A !important;
 }
 

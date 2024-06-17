@@ -8,23 +8,25 @@ class ExpenseController {
 
     //statusList = ["0-Active", "1-Closed", "2-Processed", "3-Reversed"]
     //recordTypeList = ["0-New Asset", "1-Remove Asset", "2-Debit Balance", "3-Credit Balance", "4-Transfer Credit", "5-Transfer Debit", "6-Log Expense", "7-Reverse Expense"]
+    //expenseCategoryList = ["0-Food", "1-Transportation", "2-Entertainment", "3-Utilities", "4-Personal Care", "5-Housing", "6-Healthcare", "7-Loans", "8-Insurance"]
     private userInstance = getAuthenticatedUser()
     private statusList = Status.listOrderByCode()
     private recordTypeList = RecordType.listOrderByCode()
 
     def index() {
         def expenseList = Expense.findAllByClient(userInstance)
-        println expenseList
-        def assetList = Asset.list()
+        println statusList
+        def assetList = Asset.findAllByClientAndStatus(userInstance, statusList[0])
         def totalExpense = 0
+        def categoryList = ExpenseCategory.list()
         for (expense in expenseList) {
             if(expense.status.id == statusList[2].id){
                 println expense
                 totalExpense += expense.txnAmt
             }
         }
-
-        [expenseList: expenseList, totalExpense:totalExpense, assetList:assetList]
+        println categoryList
+        [expenseList: expenseList, totalExpense:totalExpense, assetList:assetList, categoryList:categoryList]
     }
 
     def show (Long id) {
@@ -45,7 +47,8 @@ class ExpenseController {
                 txnName: params.txnName,
                 txnAmt: txnAmt,
                 creditAsset: creditAsset,
-                status: statusList[2]
+                status: statusList[2],
+                category: ExpenseCategory.get(params.categoryID)
             )
 
             creditAsset.save(flush: true)

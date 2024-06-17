@@ -1,7 +1,7 @@
 <div>
-    <div class="row p-4">
+    <div class="row p-4 align-items-center">
         <div class="col-2 text-center">
-            <div id="navBarLogo"><img id="applicationLogo" src='${assetPath(src: "applicationLogo.svg")}'/> BankDash.</div>
+            <div id="navBarLogo"><img id="applicationLogo" src='${assetPath(src: "applicationLogo.svg")}'/> Talaan.</div>
         </div>
         <div class="col">
             <div id="moduleName">Overview</div>

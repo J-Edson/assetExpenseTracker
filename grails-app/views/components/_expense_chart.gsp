@@ -1,19 +1,16 @@
 <html>
   <head>
     <script type="text/javascript">
+
       google.charts.load("current", {packages:["corechart"]});
       google.charts.setOnLoadCallback(drawChart);
       function drawChart() {
+        let expenseData = document.getElementById('expenseData').value
+        let expenseDataArr = JSON.parse(expenseData);
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Expense');
         data.addColumn('number', 'Amount');
-        data.addRows([
-            ['Bill', 33],
-            ['Food', 26],
-            ['Transpo', 22],
-            ['Entertainment', 10],
-            ['Investment', 9] 
-        ]);
+        data.addRows(expenseDataArr);
 
         var options = {
             title: 'Expense Statistics',
@@ -41,7 +38,12 @@
                 2: { color: '#F05707' },
                 3: { color: '#F02C07' }
             },
-            sliceVisibilityThreshold: .099
+            sliceVisibilityThreshold: .099,
+            pieSliceText: 'label',
+            chartArea: {
+                width: '80%',
+                height: '75%'
+            }
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('expense_piechart_3d'));
@@ -50,6 +52,8 @@
     </script>
   </head>
   <body>
-    <div id="expense_piechart_3d" style="width: 450px; height: 500px;"></div>
+    <div class="row">
+    <div id="expense_piechart_3d" style="width: 24vw; height: 50vh; border: 2px solid #C7EDF0;border-radius:10px; padding:10px; background-color: #FFFFFF;"></div>
+    </div>
   </body>
 </html>

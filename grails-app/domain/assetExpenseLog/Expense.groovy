@@ -9,7 +9,8 @@ class Expense {
     Double txnAmt
     Asset creditAsset
     Status status
-
+    ExpenseCategory category
+    
     static constraints = {
     }
 }

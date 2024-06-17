@@ -10,6 +10,6 @@
 //= require bootstrap
 //= require_self
 let sidebarClickHome = false;
-let sidebarClickSavings = false;
+let sidebarClickAsset = false;
 let sidebarClickExpense = false;
 let sidebarClickLogs = false;

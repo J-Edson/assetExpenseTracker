@@ -1,29 +1,19 @@
   <html>
   <head>
-    <script type="text/javascript">
+    <script type="text/javascript"> 
+
       google.charts.load('current', {'packages':['line']});
       google.charts.setOnLoadCallback(drawChart);
 
     function drawChart() {
-
+      let savingsBalanceHistory = document.getElementById('savingsBalanceHistory').value
+      let savingsBalanceHistoryArr = JSON.parse(savingsBalanceHistory);
+      savingsBalanceHistoryArr.unshift(['',  0]);
       var data = new google.visualization.DataTable();
       data.addColumn('string', '');
       data.addColumn('number', 'Balance');
 
-      data.addRows([
-        ['Jan',  37.8],
-        ['Feb',  30.9],
-        ['Mar',  25.4],
-        ['Apr',  11.7],
-        ['May',  11.9],
-        ['Jun',   8.8],
-        ['Jul',   7.6],
-        ['Aug',  12.3],
-        ['Sep',  16.9],
-        ['Oct', 12.8],
-        ['Nov',  5.3],
-        ['Dec',  6.6]
-      ]);
+      data.addRows(savingsBalanceHistoryArr);
 
       var options = {
         chart: {
@@ -36,7 +26,10 @@
         },
         series: {
             0: { 
-              color: '#26E1D3'
+              color: '#26E1D3',
+              lineWidth: 10,
+              pointsVisible: true, // Ensure points are always visible
+              pointSize: 10
             }
         },
         legend: { 
@@ -57,6 +50,6 @@
   </script>
   </head>
   <body>
-    <div id="balance_chart" style="width: 1000px; height: 325px"></div>
+    <div id="balance_chart" style="width: 50vw; height: 32vh; border: 2px solid #C7EDF0;border-radius:10px; padding:10px; background-color: #FFFFFF;"></div>
   </body>
 </html>

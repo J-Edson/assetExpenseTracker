@@ -1,18 +1,18 @@
 <html>
   <head>
     <script type="text/javascript">
-      let weeklyActivity = document.getElementById('weeklyActivity').value
-      let arr = JSON.parse(weeklyActivity);
-      arr.unshift(['', 'Income', 'Expense']);
-      console.log(arr)
+
       google.charts.load('current', {'packages':['bar']});
       google.charts.setOnLoadCallback(drawWeeklyChart);
 
       function drawWeeklyChart() {
-        var data = google.visualization.arrayToDataTable(arr);
+      let weeklyActivity = document.getElementById('weeklyActivity').value
+      let weeklyActivityArr = JSON.parse(weeklyActivity);
+      weeklyActivityArr.unshift(['', 'Income', 'Expense']);
+        var data = google.visualization.arrayToDataTable(weeklyActivityArr);
         var options = {
             chart: {
-                title: 'Weekly Activity'
+                title: 'Daily Activity'
             },
             titleTextStyle: {
                 color: '#343C6A', 
@@ -46,6 +46,6 @@
     </script>
   </head>
   <body>
-    <div id="activity_chart" style="width: 1000px; height: 325px;"></div>
+      <div id="activity_chart" style="width: 50vw; height: 32vh; border: 2px solid #C7EDF0;border-radius:10px; padding:10px; background-color: #FFFFFF"></div>
   </body>
 </html>

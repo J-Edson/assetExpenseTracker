@@ -12,6 +12,7 @@ class BootStrap {
         addInitialPersonAuthority()
         addInitialStatus()
         addInitialRecordType()
+        addInitialExpenseCategory()
     }
 
     @Transactional
@@ -57,6 +58,21 @@ class BootStrap {
             def newRecordType = RecordType.findByName(name)
             if(!newRecordType){
                 newRecordType = new RecordType(name: name, code: code).save()
+            }
+        }
+    }
+
+    @Transactional
+    void addInitialExpenseCategory() {
+        def expenseCategoryList = ["0-Food", "1-Transportation", "2-Entertainment", "3-Utilities", "4-Personal Care", "5-Housing", "6-Healthcare", "7-Loans", "8-Insurance"]
+
+        expenseCategoryList.each { category ->
+            String[] expenseCategory = category.split("-");
+            def code = Integer.parseInt(expenseCategory[0])
+            def name = expenseCategory[1]
+            def newCategory = ExpenseCategory.findByName(name)
+            if(!newCategory){
+                newCategory = new ExpenseCategory(name: name, code: code).save()
             }
         }
     }
