@@ -28,16 +28,25 @@
 </head>
 
 <body>
+    <%
+    def currentUri = request.forwardURI
+    %>
+    <g:if test="${currentUri == '/login/auth'}">
+        <g:layoutBody/>
+    </g:if>
+    <g:else>
+        <g:render template="/components/navbar"/>
+        <div class="row" >
+
+            <div class="col-2">
+                <g:render template="/components/sidebar"/>
+            </div>
+            <div class="col">
+                <g:layoutBody/>
+            </div>
+        </div>
+    </g:else>
     <asset:javascript src="application.js"/>
-    <g:render template="/components/navbar"/>
-    <div class="row" >
-        <div class="col-2">
-            <g:render template="/components/sidebar"/>
-        </div>
-        <div class="col">
-            <g:layoutBody/>
-        </div>
-    </div>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>    
     </body>

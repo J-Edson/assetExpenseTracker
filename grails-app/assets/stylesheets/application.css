@@ -92,10 +92,26 @@
     border-radius: 5px !important;
     width: 100%; 
     font-size: 20px !important;
+    color: black !important;
 }
 
 #addAccountButton:hover {
     background-color: #4675F4 !important;
+}
+
+#addExpenseButton:hover {
+    background-color: #B05C31 !important;
+}
+
+.sidebar {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 11vh; 
+    padding: 0 15px;
+}
+
+.dropdown-toggle::after {
+    display: none !important; 
 }
 
 

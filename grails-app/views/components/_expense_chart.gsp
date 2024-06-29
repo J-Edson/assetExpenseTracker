@@ -53,7 +53,8 @@
   </head>
   <body>
     <div class="row">
-    <div id="expense_piechart_3d" style="width: 24vw; height: 50vh; border: 2px solid #C7EDF0;border-radius:10px; padding:10px; background-color: #FFFFFF;"></div>
+      <g:hiddenField id ="expenseData" name="expenseData" value="${expenseData}" />
+      <div id="expense_piechart_3d" style="width: 24vw; height: 50vh; border: 2px solid #C7EDF0;border-radius:10px; padding:10px; background-color: #FFFFFF;"></div>
     </div>
   </body>
 </html>

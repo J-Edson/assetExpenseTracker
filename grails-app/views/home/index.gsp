@@ -56,7 +56,6 @@
     <div class="col py-5" style="background-color: #F5F7FA;">
         <div class="row">
             <div class="col-12">
-                <g:hiddenField id ="expenseData" name="expenseData" value="${expenseData}" />
                 <g:render template="/components/expense_chart"/>
             </div>
             <div class="col-11 my-3" >

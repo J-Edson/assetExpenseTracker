@@ -87,10 +87,9 @@ class HomeController {
         expenseData = expenseData as JSON
         //
 
-        //expense chart
         query = "SELECT to_char(log_date, 'YYYY-MM-DD HH24:MI:SS') AS date, description, CASE WHEN record_type_id IN (8, 10, 13, 15) THEN txn_amt ELSE -1*txn_amt END AS amount, CASE WHEN expense_id is null THEN 0 ELSE 1 END AS log_type FROM record WHERE client_id = "+userInstance.id+" ORDER BY log_date DESC limit 4"
         def recordList = sql.rows(query)
-        //
+
         [totalBalance:totalBalance, totalExpense:totalExpense, weeklyActivity:weeklyActivity, savingsBalanceHistory:savingsBalanceHistory, expenseData:expenseData, recordList:recordList]
     }
 }

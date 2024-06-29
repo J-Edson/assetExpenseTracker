@@ -2,6 +2,11 @@ package assetexpenselog
 
 import grails.gorm.transactions.Transactional
 import grails.plugin.springsecurity.annotation.Secured
+import groovy.sql.Sql
+import java.time.LocalDate
+import java.time.ZoneId
+import java.text.SimpleDateFormat
+import grails.converters.JSON
 
 @Secured('ROLE_ADMIN')
 class ExpenseController {
@@ -12,9 +17,11 @@ class ExpenseController {
     private userInstance = getAuthenticatedUser()
     private statusList = Status.listOrderByCode()
     private recordTypeList = RecordType.listOrderByCode()
+    def dataSource
+
 
     def index() {
-        def expenseList = Expense.findAllByClient(userInstance)
+        def expenseList = Expense.findAllByClient(userInstance, [sort: "id", order: "desc"])
         println statusList
         def assetList = Asset.findAllByClientAndStatus(userInstance, statusList[0])
         def totalExpense = 0
@@ -25,8 +32,20 @@ class ExpenseController {
                 totalExpense += expense.txnAmt
             }
         }
+        //expense chart
+        def sql = new Sql(dataSource)
+        def query = ""
+        println statusList
+        query = "SELECT B.name, SUM(A.txn_amt) as amount FROM expense A JOIN expense_category B on B.id = A.category_id WHERE A.client_id = "+userInstance.id+" AND A.status_id = "+statusList[2].id+" GROUP BY B.name"
+        def expenseSummary = sql.rows(query)
+        def expenseData = []
+        expenseSummary.each { expense ->
+            expenseData.add([expense.name, expense.amount])
+        }
+        expenseData = expenseData as JSON
+        //
         println categoryList
-        [expenseList: expenseList, totalExpense:totalExpense, assetList:assetList, categoryList:categoryList]
+        [expenseList: expenseList, totalExpense:totalExpense, assetList:assetList, categoryList:categoryList, expenseData:expenseData]
     }
 
     def show (Long id) {
