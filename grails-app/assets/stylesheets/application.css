@@ -42,7 +42,7 @@
     padding: 0px;
 }
 
-#LogsSub{
+#LogSub{
     font-size: 30px;
     color: #B1B1B1;
     padding: 0px;
@@ -68,3 +68,34 @@
     font-size: 30px;
     color: #343C6A !important;
 }
+
+.swiper-container {
+    width: 80vw;
+    margin: auto;
+    overflow: hidden;
+}
+
+.swiper-wrapper {
+    display: flex; 
+}
+
+.swiper-slide {
+    width: auto; 
+    flex-shrink: 0; 
+}
+
+.form-text {
+    font-size: 20px !important;
+}
+
+.form-input {
+    border-radius: 5px !important;
+    width: 100%; 
+    font-size: 20px !important;
+}
+
+#addAccountButton:hover {
+    background-color: #4675F4 !important;
+}
+
+

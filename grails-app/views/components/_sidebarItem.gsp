@@ -25,6 +25,9 @@
       ${sidebarItem}Sub.style.color='#2D60FF'
       ${sidebarItem}Item.style.borderLeft='5px solid #2D60FF';
       sidebarClick${sidebarItem}=true
+
+      document.getElementById(`moduleName`).innerHTML = `${sidebarItem}`;
+      console.log(`${sidebarItem}`)
     }
 
     ${sidebarItem}Item.addEventListener('mouseover', function() {

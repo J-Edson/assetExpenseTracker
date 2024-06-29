@@ -49,8 +49,7 @@
                 <g:render template="/components/weekly_activity_chart" />
             </div>
             <div class="col-12 mx-5">
-                <g:hiddenField id ="savingsBalanceHistory" name="savingsBalanceHistory" value="${savingsBalanceHistory}" />
-                <g:render template="/components/savings_history"/>
+                <g:render template="/components/savings_history" model="${['savingsBalanceHistory': savingsBalanceHistory]}"/>
             </div>
         </div>
     </div>

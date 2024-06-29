@@ -1,5 +1,12 @@
 <div style="border: 2px solid #C7EDF0;border-radius:10px; padding:10px; background-color: #FFFFFF;">
-  <div style="color: #343C6A;font-size: 40px;">Recent Transactions</div>
+  <div class="row ">
+    <div class="col-8 ">
+      <div style="color: #343C6A;font-size: 40px;">Recent Transactions</div>
+    </div>
+    <div class="col-4 text-end align-content-end">
+      <g:link controller="log" action="index" style="color: #343C6A;font-size: 30px;">See All</g:link>
+    </div>
+  </div>
   <ul style="border-radius: 10px; list-style-type: none;">
   <g:each var="record" in="${recordList}">
     <li>

@@ -50,6 +50,7 @@
   </script>
   </head>
   <body>
+    <g:hiddenField id ="savingsBalanceHistory" name="savingsBalanceHistory" value="${savingsBalanceHistory}" />
     <div id="balance_chart" style="width: 50vw; height: 32vh; border: 2px solid #C7EDF0;border-radius:10px; padding:10px; background-color: #FFFFFF;"></div>
   </body>
 </html>

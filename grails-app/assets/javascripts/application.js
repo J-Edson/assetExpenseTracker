@@ -12,4 +12,4 @@
 let sidebarClickHome = false;
 let sidebarClickAsset = false;
 let sidebarClickExpense = false;
-let sidebarClickLogs = false;
+let sidebarClickLog = false;

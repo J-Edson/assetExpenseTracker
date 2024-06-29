@@ -3,6 +3,11 @@ package assetexpenselog
 	
 import grails.gorm.transactions.Transactional
 import grails.plugin.springsecurity.annotation.Secured
+import groovy.sql.Sql
+import java.time.LocalDate
+import java.time.ZoneId
+import java.text.SimpleDateFormat
+import grails.converters.JSON
 
 @Secured('ROLE_ADMIN')
 class AssetController {
@@ -11,6 +16,7 @@ class AssetController {
     private statusList = Status.listOrderByCode()
     private recordTypeList = RecordType.listOrderByCode()
     private userInstance = getAuthenticatedUser()
+    def dataSource
 
     def index () {
         def assetList = Asset.list()
@@ -20,7 +26,25 @@ class AssetController {
             totalBalance += asset.balance
         }
         println totalBalance
-        [assetList: assetList, totalBalance:totalBalance]
+
+        //balance history chart
+        def sql = new Sql(dataSource)
+        def query = ""
+        println recordTypeList
+        query = "SELECT UPPER(to_char(log_date::date, 'Mon-YYYY')) AS month_record, SUM(CASE WHEN record_type_id in ("+recordTypeList[0].id+", "+recordTypeList[2].id+", "+recordTypeList[7].id+") THEN txn_amt ELSE -txn_amt END) AS balance FROM record WHERE NOT record_type_id in ("+recordTypeList[4].id+", "+recordTypeList[5].id+") AND client_id = "+userInstance.id+" GROUP BY UPPER(to_char(log_date::date, 'Mon-YYYY'))"
+        def savingsBalanceTable = sql.rows(query)
+        def savingsBalanceHistory = []
+        def balanceHistory = 0
+        savingsBalanceTable.each { savingBalance ->
+            balanceHistory += savingBalance.balance
+            savingsBalanceHistory.add([savingBalance.month_record, balanceHistory])
+        }
+        savingsBalanceHistory = savingsBalanceHistory as JSON
+        //
+        query = "SELECT to_char(log_date, 'YYYY-MM-DD HH24:MI:SS') AS date, description, CASE WHEN record_type_id IN (8, 10, 13, 15) THEN txn_amt ELSE -1*txn_amt END AS amount, CASE WHEN expense_id is null THEN 0 ELSE 1 END AS log_type FROM record WHERE client_id = "+userInstance.id+" ORDER BY log_date DESC limit 8"
+        def recordList = sql.rows(query)
+        println recordList
+        [assetList: assetList, totalBalance:totalBalance, assetActiveList:assetActiveList, savingsBalanceHistory:savingsBalanceHistory, recordList:recordList]
     }
 
     def show (Long id) {
@@ -36,6 +60,8 @@ class AssetController {
         def assetInstance = new Asset(
             client: userInstance,
             assetName: params.assetName,
+            acctNo: params.acctNo,
+            expiryDate: params.expiryDate,
             balance: params.balance,
             status: statusList[0]
         )

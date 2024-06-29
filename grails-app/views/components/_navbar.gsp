@@ -4,7 +4,7 @@
             <div id="navBarLogo"><img id="applicationLogo" src='${assetPath(src: "applicationLogo.svg")}'/> Talaan.</div>
         </div>
         <div class="col">
-            <div id="moduleName">Overview</div>
+            <div id="moduleName"></div>
         </div>
         <div class="col-2 text-end pr-5">
             <div class="row align-items-center">
