@@ -9,8 +9,8 @@ import java.time.ZoneId
 import java.text.SimpleDateFormat
 import grails.converters.JSON
 
-
-class AssetController {
+@Secured('ROLE_ADMIN')
+class SavingsController {
     //statusList = ["0-Active", "1-Closed", "2-Processed", "3-Reversed"]
     //recordTypeList = ["0-New Asset", "1-Remove Asset", "2-Debit Balance", "3-Credit Balance", "4-Transfer Credit", "5-Transfer Debit", "6-Log Expense", "7-Reverse Expense"]
     private statusList = Status.listOrderByCode()
@@ -19,11 +19,11 @@ class AssetController {
     def dataSource
 
     def index () {
-        def assetList = Asset.list()
-        def assetActiveList = Asset.findAllByClientAndStatus(userInstance, statusList[0])
+        def savingsList = Savings.list()
+        def savingsActiveList = Savings.findAllByClientAndStatus(userInstance, statusList[0])
         def totalBalance = 0
-        for (asset in assetActiveList) {
-            totalBalance += asset.balance
+        for (savings in savingsActiveList) {
+            totalBalance += savings.balance
         }
         println totalBalance
 
@@ -44,43 +44,43 @@ class AssetController {
         query = "SELECT to_char(log_date, 'YYYY-MM-DD HH24:MI:SS') AS date, description, CASE WHEN record_type_id IN (8, 10, 13, 15) THEN txn_amt ELSE -1*txn_amt END AS amount, CASE WHEN expense_id is null THEN 0 ELSE 1 END AS log_type FROM record WHERE client_id = "+userInstance.id+" ORDER BY log_date DESC limit 8"
         def recordList = sql.rows(query)
         println recordList
-        [assetList: assetList, totalBalance:totalBalance, assetActiveList:assetActiveList, savingsBalanceHistory:savingsBalanceHistory, recordList:recordList]
+        [savingsList: savingsList, totalBalance:totalBalance, savingsActiveList:savingsActiveList, savingsBalanceHistory:savingsBalanceHistory, recordList:recordList]
     }
 
     def show (Long id) {
-        def assetInstance = Asset.get(id)
+        def savingsInstance = Savings.get(id)
 
-        def assetActiveList = Asset.findAllByClientAndStatus(userInstance, statusList[0])
-        [assetInstance:assetInstance, assetActiveList:assetActiveList]
+        def savingsActiveList = Savings.findAllByClientAndStatus(userInstance, statusList[0])
+        [savingsInstance:savingsInstance, savingsActiveList:savingsActiveList]
     }
 
     @Transactional
     def save () {
         println "params " + params
-        def assetInstance = new Asset(
+        def savingsInstance = new Savings(
             client: userInstance,
-            assetName: params.assetName,
+            acctName: params.acctName,
             acctNo: params.acctNo,
             expiryDate: params.expiryDate,
             balance: params.balance,
             status: statusList[0]
         )
-        println assetInstance.assetName
-        println assetInstance.balance
-        if(!assetInstance.save()) {
-            assetInstance.errors.allErrors.each {
+        println savingsInstance.acctName
+        println savingsInstance.balance
+        if(!savingsInstance.save()) {
+            savingsInstance.errors.allErrors.each {
                 println it
             }
         }else {
-            println "AssetSave"
+            println "SavingsSave"
         }
         def recordLog = new Record(
             client: userInstance,
-            debit: assetInstance,
-            description: "New Asset",
+            debit: savingsInstance,
+            description: "New Savings",
             recordType: recordTypeList[0],
             status: statusList[2],
-            txnAmt: assetInstance.balance
+            txnAmt: savingsInstance.balance
         )
         if(!recordLog.save()) {
             println "%%Error%%"
@@ -97,16 +97,16 @@ class AssetController {
     @Transactional
     def delete () {
         println "params " + params
-        def assetInstance = Asset.get(params.id)
-        assetInstance.status = statusList[1]
-        assetInstance.save()
+        def savingsInstance = Savings.get(params.id)
+        savingsInstance.status = statusList[1]
+        savingsInstance.save()
         def recordLog = new Record(
             client: userInstance,
-            credit: assetInstance,
-            description: "Closed Asset",
+            credit: savingsInstance,
+            description: "Closed Savings",
             recordType: recordTypeList[1],
             status: statusList[2],
-            txnAmt: assetInstance.balance
+            txnAmt: savingsInstance.balance
         )
         recordLog.save()
         redirect(action: "index")
@@ -115,17 +115,17 @@ class AssetController {
     @Transactional
     def updateBalance (Long id) {
         println "%param%" + params
-        def assetInstance = Asset.get(id)
-        def assetBalance = assetInstance.balance
+        def savingsInstance = Savings.get(id)
+        def savingsBalance = savingsInstance.balance
         def txnAmt = params.txnAmt.toDouble()
         def recordLog = new Record()
         if(params.transactionType.equals("debit")) {
             println "debitBalance"
-            assetInstance.balance += txnAmt
-            assetInstance.save()
+            savingsInstance.balance += txnAmt
+            savingsInstance.save()
 
             recordLog.client = userInstance
-            recordLog.debit = assetInstance
+            recordLog.debit = savingsInstance
             recordLog.description = "Add Balance"
             recordLog.recordType = recordTypeList[2]
             recordLog.status = statusList[2]
@@ -133,13 +133,13 @@ class AssetController {
             recordLog.save()
         }else{
             println "creditBalance"
-            if(assetBalance >= txnAmt){
-                println "assetBalance < txnAmt"
-                assetInstance.balance -= txnAmt
-                assetInstance.save()
+            if(savingsBalance >= txnAmt){
+                println "savingsBalance < txnAmt"
+                savingsInstance.balance -= txnAmt
+                savingsInstance.save()
 
                 recordLog.client = userInstance
-                recordLog.credit = assetInstance
+                recordLog.credit = savingsInstance
                 recordLog.description = "Reduce Balance"
                 recordLog.recordType = recordTypeList[3]
                 recordLog.status = statusList[2]
@@ -147,23 +147,23 @@ class AssetController {
                 recordLog.save()
             }
         }
-        println "%newBalance% " + assetInstance.balance  
+        println "%newBalance% " + savingsInstance.balance  
         redirect(action: "index")
     }
 
     @Transactional
     def transferBalance (Long id) {
         println "%transferBalanceParams% " + params
-        def creditAsset = Asset.get(id)
-        def debitAsset = Asset.get(params.debitAssetID)
+        def creditSavings = Savings.get(id)
+        def debitSavings = Savings.get(params.debitSavingsID)
         def txnAmt = params.txnAmt.toDouble()
 
-        if(txnAmt <= creditAsset.balance){
-            creditAsset.balance -= txnAmt
-            debitAsset.balance += txnAmt
+        if(txnAmt <= creditSavings.balance){
+            creditSavings.balance -= txnAmt
+            debitSavings.balance += txnAmt
             def recordLogDebit = new Record(
                 client: userInstance,
-                debit: debitAsset,
+                debit: debitSavings,
                 description: "Balance Received",
                 recordType: recordTypeList[5],
                 status: statusList[2],
@@ -171,7 +171,7 @@ class AssetController {
             )
             def recordLogCredit = new Record(
                 client: userInstance,
-                credit: creditAsset,
+                credit: creditSavings,
                 description: "Balance Transfer",
                 recordType: recordTypeList[4],
                 status: statusList[2],
@@ -181,9 +181,8 @@ class AssetController {
             recordLogCredit.save()
         }
 
-        creditAsset.save()
-        debitAsset.save()
+        creditSavings.save()
+        debitSavings.save()
         redirect(action: "index")
     }
-
 }

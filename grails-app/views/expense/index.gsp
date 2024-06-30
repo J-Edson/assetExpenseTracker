@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Asset Expense Log</title>
+    <title>Savings Expense Log</title>
 </head>
 <body>
     <div class="row py-5 justify-content-center" style="background-color: #F5F7FA;">
@@ -54,9 +54,9 @@
                                                 <div class="form-text">Account Credited</div>
                                             </div>
                                             <div class="col-12">
-                                                <select class="form-input" id="creditAssetID" name="creditAssetID" multiple required>
-                                                    <g:each var="asset" in="${assetList}">
-                                                        <option value=${asset.id}>${asset.assetName}</option>
+                                                <select class="form-input" id="creditAcctID" name="creditAcctID" multiple required>
+                                                    <g:each var="savings" in="${savingsList}">
+                                                        <option value=${savings.id}>${savings.acctName}</option>
                                                     </g:each>
                                                 </select>
                                             </div>
@@ -89,7 +89,7 @@
                                 <tr>
                                     <td>${expense.txnName}</td>
                                     <td>${expense.category.name}</td>
-                                    <td>${expense.creditAsset.assetName}</td>
+                                    <td>${expense.creditAcct.acctName}</td>
                                     <td><g:formatNumber number="${expense.txnAmt}" format="#,##0.00" /></td>
                                     <td>${expense.status.name}</td>
                                 </tr>

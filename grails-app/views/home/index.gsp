@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Asset Expense Log</title>
+    <title>Savings Expense Log</title>
 </head>
 <body>
 <div class="row" >

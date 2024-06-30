@@ -49,7 +49,7 @@ class BootStrap {
 
     @Transactional
     void addInitialRecordType() {
-        def recordTypeList = ["0-New Asset", "1-Remove Asset", "2-Debit Balance", "3-Credit Balance", "4-Transfer Credit", "5-Transfer Debit", "6-Log Expense", "7-Reverse Expense"]
+        def recordTypeList = ["0-New Savings", "1-Remove Savings", "2-Debit Balance", "3-Credit Balance", "4-Transfer Credit", "5-Transfer Debit", "6-Log Expense", "7-Reverse Expense"]
 
         recordTypeList.each { type ->
             String[] recordType = type.split("-");

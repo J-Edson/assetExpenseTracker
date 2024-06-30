@@ -8,8 +8,8 @@ import assetExpenseLog.Person
 class Record {
 
     Person client
-    Asset credit
-    Asset debit
+    Savings credit
+    Savings debit
     String description
     Expense expense
     RecordType recordType

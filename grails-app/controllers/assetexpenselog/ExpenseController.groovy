@@ -12,7 +12,7 @@ import grails.converters.JSON
 class ExpenseController {
 
     //statusList = ["0-Active", "1-Closed", "2-Processed", "3-Reversed"]
-    //recordTypeList = ["0-New Asset", "1-Remove Asset", "2-Debit Balance", "3-Credit Balance", "4-Transfer Credit", "5-Transfer Debit", "6-Log Expense", "7-Reverse Expense"]
+    //recordTypeList = ["0-New Savings", "1-Remove Savings", "2-Debit Balance", "3-Credit Balance", "4-Transfer Credit", "5-Transfer Debit", "6-Log Expense", "7-Reverse Expense"]
     //expenseCategoryList = ["0-Food", "1-Transportation", "2-Entertainment", "3-Utilities", "4-Personal Care", "5-Housing", "6-Healthcare", "7-Loans", "8-Insurance"]
     private userInstance = getAuthenticatedUser()
     private statusList = Status.listOrderByCode()
@@ -23,7 +23,7 @@ class ExpenseController {
     def index() {
         def expenseList = Expense.findAllByClient(userInstance, [sort: "id", order: "desc"])
         println statusList
-        def assetList = Asset.findAllByClientAndStatus(userInstance, statusList[0])
+        def savingsList = Savings.findAllByClientAndStatus(userInstance, statusList[0])
         def totalExpense = 0
         def categoryList = ExpenseCategory.list()
         for (expense in expenseList) {
@@ -45,7 +45,7 @@ class ExpenseController {
         expenseData = expenseData as JSON
         //
         println categoryList
-        [expenseList: expenseList, totalExpense:totalExpense, assetList:assetList, categoryList:categoryList, expenseData:expenseData]
+        [expenseList: expenseList, totalExpense:totalExpense, savingsList:savingsList, categoryList:categoryList, expenseData:expenseData]
     }
 
     def show (Long id) {
@@ -56,25 +56,25 @@ class ExpenseController {
     @Transactional
     def save () {
         println "%%params%% " + params
-        def creditAsset = Asset.get(params.creditAssetID)
+        def creditAcct = Savings.get(params.creditAcctID)
         def txnAmt = params.txnAmt.toDouble()
-        if(creditAsset.balance >= txnAmt){
-            creditAsset.balance -= txnAmt
+        if(creditAcct.balance >= txnAmt){
+            creditAcct.balance -= txnAmt
 
             def expenseInstance = new Expense(
                 client: userInstance,
                 txnName: params.txnName,
                 txnAmt: txnAmt,
-                creditAsset: creditAsset,
+                creditAcct: creditAcct,
                 status: statusList[2],
                 category: ExpenseCategory.get(params.categoryID)
             )
 
-            creditAsset.save(flush: true)
+            creditAcct.save(flush: true)
             expenseInstance.save(flush: true)
             def recordLog = new Record(
                 client: userInstance,
-                credit: creditAsset,
+                credit: creditAcct,
                 expense: expenseInstance,
                 description: "Log Expense",
                 recordType: recordTypeList[6],
@@ -92,17 +92,17 @@ class ExpenseController {
     def reverse(){
         println "params " + params
         def expenseInstance = Expense.get(params.id)
-        def assetInstance = expenseInstance?.creditAsset
+        def savingsInstance = expenseInstance?.creditSavings
         def txnAmt = expenseInstance.txnAmt
 
-        assetInstance.balance += txnAmt
+        savingsInstance.balance += txnAmt
         expenseInstance.status = statusList[3]
-        assetInstance.save()
+        savingsInstance.save()
         expenseInstance.save()
 
         def recordLog = new Record(
             client: userInstance,
-            debit: assetInstance,
+            debit: savingsInstance,
             expense: expenseInstance,
             description: "Reverse Expense",
             recordType: recordTypeList[7],
@@ -111,7 +111,7 @@ class ExpenseController {
         )
         recordLog.save(flush: true)
 
-        println "newAssetBal " + assetInstance.balance
+        println "newSavingsBal " + savingsInstance.balance
         println "reversedExpense " + expenseInstance.txnName
         redirect(action: "index")
     }

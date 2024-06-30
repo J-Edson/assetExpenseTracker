@@ -24,10 +24,10 @@
       ${sidebarItem}Icon.src=`${assetPath(src: srcPath1)}`
       ${sidebarItem}Sub.style.color='#2D60FF'
       ${sidebarItem}Item.style.borderLeft='5px solid #2D60FF';
-      sidebarClick${sidebarItem}=true
 
       document.getElementById(`moduleName`).innerHTML = `${sidebarItem}`;
       console.log(`${sidebarItem}`)
+      console.log(sidebarClickHome)
     }
 
     ${sidebarItem}Item.addEventListener('mouseover', function() {
@@ -36,7 +36,7 @@
         ${sidebarItem}Item.style.borderLeft='5px solid #2D60FF';
     });
     ${sidebarItem}Item.addEventListener('mouseout', function() {
-        if(!sidebarClick${sidebarItem}){
+        if(`${sidebarItem}`.toLowerCase() != window.location.pathname.split("/").filter(Boolean)[0].toLowerCase()){
           ${sidebarItem}Icon.src=`${assetPath(src: srcPath)}`
           ${sidebarItem}Sub.style.color='#B1B1B1'
           ${sidebarItem}Item.style.border='none';

@@ -7,7 +7,7 @@ class Expense {
     Person client
     String txnName
     Double txnAmt
-    Asset creditAsset
+    Savings creditAcct
     Status status
     ExpenseCategory category
     

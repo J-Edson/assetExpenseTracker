@@ -11,7 +11,7 @@ import grails.converters.JSON
 @Secured('ROLE_ADMIN')
 class HomeController {
     //statusList = ["0-Active", "1-Closed", "2-Processed", "3-Reversed"]
-    //recordTypeList = ["0-New Asset", "1-Remove Asset", "2-Debit Balance", "3-Credit Balance", "4-Transfer Credit", "5-Transfer Debit", "6-Log Expense", "7-Reverse Expense"]
+    //recordTypeList = ["0-New Savings", "1-Remove Savings", "2-Debit Balance", "3-Credit Balance", "4-Transfer Credit", "5-Transfer Debit", "6-Log Expense", "7-Reverse Expense"]
     //expenseCategoryList = ["0-Food", "1-Transportation", "2-Entertainment", "3-Utilities", "4-Personal Care", "5-Housing", "6-Healthcare", "7-Loans", "8-Insurance"]
     private statusList = Status.listOrderByCode()
     private recordTypeList = RecordType.listOrderByCode()
@@ -20,10 +20,10 @@ class HomeController {
     def dataSource
 
     def index() { 
-        def assetActiveList = Asset.findAllByClientAndStatus(userInstance, statusList[0])
+        def savingsActiveList = Savings.findAllByClientAndStatus(userInstance, statusList[0])
         def totalBalance = 0.00D
-        for (asset in assetActiveList) {
-            totalBalance += asset.balance
+        for (savings in savingsActiveList) {
+            totalBalance += savings.balance
         }
 
         def expenseList = Expense.findAllByClientAndStatus(userInstance, statusList[2])

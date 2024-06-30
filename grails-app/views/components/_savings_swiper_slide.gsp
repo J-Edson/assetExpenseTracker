@@ -8,7 +8,7 @@
                                                         Balance
                                                     </div>
                                                     <div class="col-12 fs-3" style="font-family: 'Lato';font-weight: 400;font-style: normal;">
-                                                        &#x20B1;<g:formatNumber number="${activeAsset.balance}" format="#,##0.00" />
+                                                        &#x20B1;<g:formatNumber number="${activeSavings?.balance}" format="#,##0.00" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -23,7 +23,7 @@
                                                         Account Name
                                                     </div>
                                                     <div class="col-12 fs-5" style="font-family: 'Lato';font-weight: 400;font-style: normal;">
-                                                        ${activeAsset.assetName}
+                                                        ${activeSavings?.acctName}
                                                     </div>
                                                 </div>
                                             </div>
@@ -33,14 +33,14 @@
                                                         Valid Thru
                                                     </div>
                                                     <div class="col-12 fs-5" style="font-family: 'Lato';font-weight: 400;font-style: normal;">
-                                                        ${activeAsset.expiryDate}
+                                                        <g:formatDate format="MM/yy" date="${activeSavings?.expiryDate}"/>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row py-3 justify-content-center">
                                             <div class="col-7 fs-2" style="font-family: 'Lato';font-weight: 400;font-style: normal;">
-                                                ${activeAsset.acctNo}
+                                                ${activeSavings?.acctNo}
                                             </div>
                                             <div class="col-3 text-end">
                                                 <img src='${assetPath(src: "card_account_icon1.svg")}' alt="card-icon">

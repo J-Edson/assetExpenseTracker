@@ -106,22 +106,22 @@ dataSource:
   pooled: true
   jmxExport: true
   driverClassName: org.postgresql.Driver
-  username: postgres
-  password: "postgres"
+  username: postgres.ragpwewrzhxpqoqheaat
+  password: "SavingsExpenseLog"
 
 environments:
   development:
     dataSource:
       dbCreate: update
-      url: jdbc:postgresql://localhost:5432/asset_expense_log5
+      url: jdbc:postgresql://aws-0-us-east-1.pooler.supabase.com:6543/postgres
   test:
     dataSource:
       dbCreate: update
-      url: jdbc:postgresql://localhost:5432/asset_expense_log5
+      url: jdbc:postgresql://aws-0-us-east-1.pooler.supabase.com:6543/postgres
   production:
     dataSource:
       dbCreate: update
-      url: jdbc:postgresql://localhost:5432/asset_expense_log5
+      url: jdbc:postgresql://aws-0-us-east-1.pooler.supabase.com:6543/postgres
       properties:
         jmxEnabled: true
         initialSize: 5

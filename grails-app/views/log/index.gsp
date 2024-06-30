@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Asset Expense Log</title>
+    <title>Savings Expense Log</title>
 </head>
 <body>
     <div class="row justify-content-center py-5" style="background-color: #F5F7FA;">
@@ -26,10 +26,10 @@
                             <td>${record.id}</td>
                             <td>${record.recordType.name}</td>
                             <g:if test="${!record?.debit}">
-                                <td>${record?.credit?.assetName}</td>
+                                <td>${record?.credit?.acctName}</td>
                             </g:if>
                             <g:else>
-                                <td>${record?.debit?.assetName}</td>
+                                <td>${record?.debit?.acctName}</td>
                             </g:else>
                             <td>${record.logDate}</td>
                             <g:if test="${!record?.debit}">
