@@ -26,9 +26,6 @@ WORKDIR /app
 # Copy the Grails application files to the container
 COPY . .
 
-# Build your Grails application
-RUN grails clean
-
 # Expose the port your application runs on
 EXPOSE 8080
 
