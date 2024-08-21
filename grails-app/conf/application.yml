@@ -140,3 +140,7 @@ environments:
         testOnReturn: false
         jdbcInterceptors: ConnectionState
         defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
+
+server:
+  address: 0.0.0.0
+  port: ${PORT:8080}
