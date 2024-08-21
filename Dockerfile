@@ -1,5 +1,5 @@
 # Use an appropriate base image with JDK 17 and basic utilities
-FROM openjdk:17-alpine
+FROM amazoncorretto:11-alpine
 
 # Set environment variables
 ENV GRAILS_VERSION 5.3.6
